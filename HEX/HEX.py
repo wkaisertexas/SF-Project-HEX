@@ -22,7 +22,7 @@ class Board:
         # this will not return which team one since that is the player that currently moved
         return
 
-class Space:  # this should be a part of the game logic file, not the GUI file
+class Space:
     white = False
     black = False
 
