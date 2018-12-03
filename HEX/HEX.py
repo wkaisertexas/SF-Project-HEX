@@ -11,23 +11,35 @@ class Board:
 
     def white_move(self, x, y):
         self.tile_array[x][y].white_space()
+        self.move.append[Move(x,y,True)]
 
     def black_move(self, x, y):
         self.tile_array[x][y].black_space()
+        self.move.append[Move(x,y,False)]
 
     def expand_groups(self):
-        return
+        # this looks at the latest move to check if it is connected to annother group
+        return 
         
     def calculate_win_condition(self):
-        if (self.moves / 2) < len(self.tile_array):  # this uses less compute power
+        if math.ceil(self.moves / 2) < len(self.tile_array):  # this uses less compute power
             return False
 
         # this will not return which team one since that is the player that currently moved
         for group in self.groups:
             if group[0].white and self.moves[len(self.moves) - 1].white:  # this is if both
-
-            elif group[0].black and :
-            return
+                top = False
+                bottom = False
+                for tile in group:
+                    # this loops for each tile in a group
+                    if tile.y = 0:
+                        top = True 
+                
+                if top and bottom:
+                    return True
+            elif group[0].black and self.moves[len(self.moves) - 1].black:
+                
+            
         return
 
 class Space:
@@ -49,7 +61,7 @@ class Space:
         self.black = False
         self.white = False
       
-class move:  # this is used for storage of the moves in the move array
+class Move:  # this is used for storage of the moves in the move array\\\  this will also be used to calculate groups
     x = None
     y = None
     white = False
