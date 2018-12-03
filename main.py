@@ -5,7 +5,10 @@ import GUI
 
 
 # this will initalize the GUI if required by the config file
-if true:
-    G
+
+
+
+
+
 
 
