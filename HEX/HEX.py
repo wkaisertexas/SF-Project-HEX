@@ -38,9 +38,19 @@ class Board:
                 if top and bottom:
                     return True
             elif group[0].black and self.moves[len(self.moves) - 1].black:
-                
-            
         return
+    
+    def to_string(self):
+        return_string = ""
+        if calculate_win_condition():
+            if moves[len(moves) - 1].white:
+                return_string = "W:"
+            else:
+                return_string = "B:"
+        else:
+            return_string = "U:"
+        
+        return return_string
 
 class Space:
     white = False
@@ -73,4 +83,9 @@ class Move:  # this is used for storage of the moves in the move array\\\  this 
             self.white = True
         else:
             self.black = True
+   
+    def to_string(self):
+        if self.white:
+            
+        else
     
