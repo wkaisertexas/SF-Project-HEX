@@ -38,6 +38,14 @@ class Board:
                 if top and bottom:
                     return True
             elif group[0].black and self.moves[len(self.moves) - 1].black:
+                left = False
+                right= False
+                for tile in groups:
+                    # this loops for each tile in group
+                    if tile.x = 0:
+                        left = True
+                    elif tile.x = len(self.moves) - 1:
+                        right = True
         return
     
     def to_string(self):
@@ -50,6 +58,10 @@ class Board:
         else:
             return_string = "U:"
         
+        # this converts each move into a string
+        for move in self.moves:
+            return_string += move.to_string()
+            
         return return_string
 
 class Space:
@@ -86,6 +98,7 @@ class Move:  # this is used for storage of the moves in the move array\\\  this 
    
     def to_string(self):
         if self.white:
-            
-        else
+            return "(W," + str(self.x) + "," + str(self.y) + ")"
+        else:
+            return "(B," + str(self.x) + "," + str(self.y) + ")"        
     
