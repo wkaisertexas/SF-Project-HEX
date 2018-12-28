@@ -4,3 +4,9 @@
 import numpy
 import tensorflow
 
+class MLinstance:  # I need to come up with a better name for this
+
+    def __init__(self):
+        return
+
+
