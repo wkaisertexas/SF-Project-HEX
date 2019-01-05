@@ -11,7 +11,17 @@ experiment = ""  # this is the location for the experiment paramaters
 # this will initalize the GUI if required by the config file
 
 class main():
+
   def __init__(self):
+
+
+
+
+
+
+
+
+
     return
   
   def train(self, times):

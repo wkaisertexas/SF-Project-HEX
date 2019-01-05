@@ -1,6 +1,6 @@
 # this contains the game logic for Hex
 import math
-
+from array import *
 
 class Board:
     tile_array = None
@@ -107,7 +107,8 @@ class Board:
 
         return False
     
-    def to_string(self):
+    def to_savable_string(self):
+        # this converts all of the moves into a savable string
         if self.calculate_win_condition():
             if self.moves[-1].white:
                 return_string = "W:"
@@ -117,9 +118,41 @@ class Board:
             return_string = "U:"
 
         for move in self.moves:
-            return_string += move.to_string() + ","
+            return_string += move.to_savable_string() + ","
 
         return return_string
+
+    def to_string(self):
+        # this will convert the board into a string
+        # return_array = [["a"] * (2 * len(self.tile_array))] * (3 * len(self.tile_array))
+        return_array = []
+
+        for x in range(3 * len(self.tile_array)):
+            return_array.append(["a"] * 2 * len(self.tile_array))
+
+        # this numbers the top row
+        for x in range(len(self.tile_array):
+            
+
+
+        print(return_array)
+        return return_array
+
+        # this takes care of the numbering on the side
+
+        return_string = ""
+        # this converts the array back into a string
+        for row in return_array:
+            print(row)
+            for element in row:
+                return_string += element
+            return_string += "\n"
+
+        print(return_string)
+        return return_string
+
+
+
 
 class Space:
     white = False
@@ -139,6 +172,14 @@ class Space:
     def blank_space(self):
         self.black = False
         self.white = False
+
+    def to_string(self):
+        if self.white:
+            return "W"
+        elif self.black:
+            return "B"
+        else:
+            return " "
 
 
 class Move:  # this is used for storage of the moves in the move array\\\  this will also be used to calculate groups
@@ -182,3 +223,6 @@ test_board = Board(11)
 print(test_board.check_bordering_moves(move1, move2))
 '''
 
+test = Board(5)
+
+test.to_string()
