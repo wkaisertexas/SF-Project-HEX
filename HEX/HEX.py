@@ -3,13 +3,14 @@ import math
 from array import *
 
 class Board:
-    tile_array = None
+    tile_array = []
     white_groups = []  # groups are sets of contiguous moves
     black_groups = []
     moves = []  # this is a array of moves that were played in the game
 
     def __init__(self, size):
-        self.tile_array = [[Space()] * size] * size
+        for x in range(size):
+            self.tile_array.append([Space] * size)
 
     def white_move(self, x, y):
         self.tile_array[x][y].white_space()
