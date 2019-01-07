@@ -8,17 +8,20 @@ class Board:
     black_groups = []
     moves = []  # this is a array of moves that were played in the game
 
-    def __init__(self, size):
-        for x in range(size):
-            self.tile_array.append([Space] * size)
+    def __init__(self, size):  # this code is required to fix weird issues with editing arrays
+        for y in range(size):
+            row = []
+            for x in range(size):
+                row.append(Space())
+            self.tile_array.append(row)
 
     def white_move(self, x, y):
         self.tile_array[x][y].white_space()
-        self.moves.append[Move(x, y, True)]
+        self.moves.append(Move(x, y, True))
 
     def black_move(self, x, y):
         self.tile_array[x][y].black_space()
-        self.moves.append[Move(x, y, False)]
+        self.moves.append(Move(x, y, False))
 
     def expand_groups(self):  # I have no idea if this works
         # this looks at the latest move to check if it is connected to another group
@@ -76,15 +79,15 @@ class Board:
         y_mapping = {0: [-1, 1], 1: [-1, 0], -1: [0, 1]}
 
         for x_item in [x + bordering_move.x for x in x_boundaries]:
-            print(x_item)
             if x_item == move.x:
                 for y_item in [y + bordering_move.y for y in y_mapping[x_item - bordering_move.x]]:
-                    print("Y:" + str(y_item))
                     if y_item == move.y:
                         return True
         return False
 
     def calculate_win_condition(self):
+        self.expand_groups()
+
         # this will not return which team one since that is the player that currently moved
         if self.moves[-1].white:
             testing_groups = self.white_groups
@@ -92,16 +95,18 @@ class Board:
             testing_groups = self.black_groups
 
         for group in testing_groups:
+            first = False
+            last = False
             for move in group:
                 if self.moves[-1].white:
                     if move.y == 0:
                         first = True
-                    elif move.y == len(self.tile_array):
+                    elif move.y == (len(self.tile_array) - 1):
                         last = True
                 else:
                     if move.x == 0:
                         first = True
-                    elif move.x == len(self.tile_array):
+                    elif move.x == (len(self.tile_array) - 1):
                         last = True
             if first and last:
                 return True
@@ -124,35 +129,15 @@ class Board:
         return return_string
 
     def to_string(self):
-        # this will convert the board into a string
-        # return_array = [["a"] * (2 * len(self.tile_array))] * (3 * len(self.tile_array))
-        return_array = []
-
-        for x in range(3 * len(self.tile_array)):
-            return_array.append(["a"] * 2 * len(self.tile_array))
-
-        # this numbers the top row
-        for x in range(len(self.tile_array):
-            
-
-
-        print(return_array)
-        return return_array
-
-        # this takes care of the numbering on the side
-
+        # this will convert the board into a string that can be displayed
         return_string = ""
-        # this converts the array back into a string
-        for row in return_array:
-            print(row)
-            for element in row:
-                return_string += element
+
+        for x in range(len(self.tile_array)):
+            return_string += " " * x
+            for y in range(len(self.tile_array)):
+                return_string += self.tile_array[y][x].to_string() + " "
             return_string += "\n"
-
-        print(return_string)
         return return_string
-
-
 
 
 class Space:
@@ -180,7 +165,7 @@ class Space:
         elif self.black:
             return "B"
         else:
-            return " "
+            return "_"
 
 
 class Move:  # this is used for storage of the moves in the move array\\\  this will also be used to calculate groups
@@ -224,6 +209,4 @@ test_board = Board(11)
 print(test_board.check_bordering_moves(move1, move2))
 '''
 
-test = Board(5)
 
-test.to_string()
