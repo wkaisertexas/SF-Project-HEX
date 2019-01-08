@@ -15,6 +15,9 @@ class Board:
                 row.append(Space())
             self.tile_array.append(row)
 
+    def get_board_size(self):
+        return len(self.tile_array), len(self.tile_array)
+
     def white_move(self, x, y):
         self.tile_array[x][y].white_space()
         self.moves.append(Move(x, y, True))
@@ -22,6 +25,13 @@ class Board:
     def black_move(self, x, y):
         self.tile_array[x][y].black_space()
         self.moves.append(Move(x, y, False))
+
+    def make_move(self, move):
+        if move.white:
+            self.tile_array[move.x][move.y].white_space()
+        else:
+            self.tile_array[move.x][move.y].black_space()
+        self.moves.append(move)
 
     def expand_groups(self):  # I have no idea if this works
         # this looks at the latest move to check if it is connected to another group
@@ -139,6 +149,22 @@ class Board:
             return_string += "\n"
         return return_string
 
+    def get_legal_moves(self, color):  # this serves as an input to the the game
+        legal_moves = []
+        if color:
+            # White
+            # this board does not get flipped
+            for x in range(len(self.tile_array)):
+                for y in range(len(self.tile_array)):
+                    if self.tile_array[x][y].check_blank_space():
+                        legal_moves.append(Move(x, y, True))
+        else:
+            # Black
+            # this board gets flipped in order to only have to use one neural network in order to play this game
+
+            print("HI")
+        return
+
 
 class Space:
     white = False
@@ -159,13 +185,16 @@ class Space:
         self.black = False
         self.white = False
 
+    def check_blank_space(self):
+        return not (self.white or self.black)
+
     def to_string(self):
         if self.white:
             return "W"
         elif self.black:
             return "B"
         else:
-            return "_"
+            return "-"
 
 
 class Move:  # this is used for storage of the moves in the move array\\\  this will also be used to calculate groups
@@ -187,26 +216,3 @@ class Move:  # this is used for storage of the moves in the move array\\\  this 
             return "W:(" + str(self.x) + "," + str(self.y) + ")"
         else:
             return "B:(" + str(self.x) + "," + str(self.y) + ")"
-
-
-'''
-    This of things tested:
-        check_bordering_moves()
-
-'''
-
-# start of test code
-
-# this tests the check_bordering_moves function
-'''
-# this creates the moves
-move1 = Move(3, 0, True)
-move2 = Move(4, 1, True)
-
-# this checks if they register correctly
-test_board = Board(11)
-
-print(test_board.check_bordering_moves(move1, move2))
-'''
-
-
